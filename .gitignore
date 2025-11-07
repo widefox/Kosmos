@@ -1,163 +1,95 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
 
-# Virtual environments
-venv/
-env/
-ENV/
-.venv
+# Outputs
+*_output.txt
+output.txt
+
+# Env
 .env
 
-# PyCharm
-.idea/
+# Editors
+.project
+.settings
+.springBeans
+**/.favorites.json
+**/.idea
+**/.vscode
+**/*.Session.vim
+**/*.sw[a-z]
+**/*.vim
+**/*.zwc
+**/*~
 
-# VS Code
-.vscode/
+# OS generated files
+**/._*
+**/.AppleDouble
+**/.dccache
+**/.dropbox
+**/.dropbox.attr
+**/.dropbox.cache
+**/.DS_Store
+**/.DS_STORE
+**/.lnk
+**/.LSOverride
+**/$RECYCLE.BIN/
+**/Desktop.ini
+**/ehthumbs.db
+**/Thumbs.db
 
-# Jupyter Notebook
-.ipynb_checkpoints
+# Files that might appear in the root of a volume
+**/.com.apple.timemachine.donotpresent
+**/.DocumentRevisions-V100
+**/.fseventsd
+**/.Spotlight-V100
+**/.TemporaryItems
+**/.Trashes
+**/.VolumeIcon.icns
 
-# pyenv
-.python-version
+# Directories potentially created on remote AFP share
+**/.apdisk
+**/.AppleDB
+**/.AppleDesktop
+**/Network Trash Folder
+**/Temporary Items
 
-# pipenv
-Pipfile.lock
+# Temp files
+**/.temp
+**/.tmp
+tmp/
 
-# Poetry
-poetry.lock
-
-# Environment variables
-.env
-.env.local
-.env.*.local
-
-# Database
-*.db
-*.sqlite
-*.sqlite3
-kosmos.db
-.chroma_db/
+# Files that commonly contain secrets
+**/*.key
+**/*.pem
+**/*.pfx
+**/*.p12
+**/*.jks
+**/*.keystore
+**/*.pkcs12
+**/*.pkcs8
+**/*.pkpass
+**/*.secrets
 
 # Logs
-*.log
-logs/
-*.log.*
+**/*.log
 
-# Testing
-.pytest_cache/
-.coverage
-htmlcov/
-.tox/
-.nox/
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
+# Build directories
+**/_build/
+**/dist
+build/
+out/
+target/
 
-# Type checking
-.mypy_cache/
-.dmypy.json
+# Python
+__pycache__/
+__pypackages__/
+.ipynb_checkpoints
+*$py.class
+celerybeat-schedule
+develop-eggs/
 dmypy.json
-.pyre/
-.pytype/
-
-# Documentation builds
-docs/_build/
-docs/.doctrees/
-site/
-
-# macOS
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Windows
-Thumbs.db
-Thumbs.db:encryptable
-ehthumbs.db
-ehthumbs_vista.db
-*.stackdump
-[Dd]esktop.ini
-$RECYCLE.BIN/
-*.cab
-*.msi
-*.msix
-*.msm
-*.msp
-*.lnk
-
-# Linux
-*~
-.fuse_hidden*
-.directory
-.Trash-*
-.nfs*
-
-# IDEs
-*.swp
-*.swo
-*.swn
-.vscode/
-.idea/
-
-# Project-specific
-experiments_data/
-results/
-checkpoints/
-temp/
-tmp/
-cache/
-
-# Kosmos-specific
-# Keep kosmos-figures for analysis reference
-# kosmos-figures/
-
-# Experiment outputs
-experiment_runs/
-research_outputs/
-
-# Vector database
-.chroma_db/
-pinecone_cache/
-
-# Alembic
-# Keep alembic directory but ignore some generated files
-alembic/versions/*.pyc
-
-# Backup files
-*.bak
-*.backup
-*.old
-
-# Compressed files
-*.zip
-*.tar.gz
-*.rar
-
-# API keys and secrets (extra safety)
-secrets/
-*.pem
-*.key
-credentials.json
+eggs/
+ipython_config.py
+local_settings.py
+pip-delete-this-directory.txt
+pip-log.txt
+pip-wheel-metadata/
+venv
