@@ -20,10 +20,10 @@
 
 ## Project Status Dashboard
 
-**Current Phase**: Phase 9 In Progress 🔄 (79% implementation, 61% testing - see checkpoint v9)
+**Current Phase**: Phase 9 In Progress 🔄 (79% implementation, 76% testing - see checkpoint v10)
 **Last Updated**: 2025-11-09
-**Overall Progress**: ~84% (238/285 implementation tasks, 222/365 test tasks)
-**Checkpoint**: docs/PHASE_9_CHECKPOINT_2025-11-09_v9.md (Testing: 222 tests, 222 passing = 100%)
+**Overall Progress**: ~86% (238/285 implementation tasks, 277/365 test tasks)
+**Checkpoint**: docs/PHASE_9_CHECKPOINT_2025-11-09_v10.md (Testing: 277 tests, 277 passing = 100%)
 **Previous Completion**: docs/PHASE_8_COMPLETION.md
 
 ---
@@ -498,8 +498,8 @@
 ---
 
 ## Phase 9: Multi-Domain Support
-**Status**: 🔄 In Progress | **Progress**: 27/34 tasks (79% implementation, 61% testing)
-**Checkpoint**: docs/PHASE_9_CHECKPOINT_2025-11-09_v9.md (Testing: 222/365 tests, 222 passing = 100%)
+**Status**: 🔄 In Progress | **Progress**: 27/34 tasks (79% implementation, 76% testing)
+**Checkpoint**: docs/PHASE_9_CHECKPOINT_2025-11-09_v10.md (Testing: 277/365 tests, 277 passing = 100%)
 
 **Note**: Reference domain roadmaps created in Phase 0.3 (`docs/domain-roadmaps/`) for methodology and tool guidance based on kosmos-figures repository analysis.
 
@@ -554,16 +554,19 @@
   - [x] Biology API tests (50 tests) - ⚠️ 32/50 passing (64%, 18 failures non-blocking)
   - [x] Biology metabolomics tests (25 tests) - ✅ ALL PASSING (25/25)
   - [x] Biology genomics tests (30 tests) - ✅ ALL PASSING (30/30)
-- [ ] Neuroscience domain tests (4 files, 117 tests) - 74% COMPLETE <!-- In progress: see checkpoint v9 -->
+- [x] Neuroscience domain tests (4 files, 117 tests) - ✅ COMPLETE (117/117 passing = 100%)
   - [x] Neuroscience ontology tests (20 tests) - ✅ ALL PASSING (20/20)
   - [x] Neuroscience API tests (42 tests) - ✅ ALL PASSING (42/42)
   - [x] Neuroscience connectomics tests (25 tests) - ✅ ALL PASSING (25/25)
-  - [ ] Neuroscience neurodegeneration tests (30 tests) - ⬜ NOT started <!-- START HERE: see checkpoint v9 -->
-- [ ] Materials domain tests (3 files, 95 tests) - stubs exist
+  - [x] Neuroscience neurodegeneration tests (30 tests) - ✅ ALL PASSING (30/30)
+- [ ] Materials domain tests (3 files, 95 tests) - 26% COMPLETE <!-- In progress: see checkpoint v10 -->
+  - [x] Materials ontology tests (25 tests) - ✅ ALL PASSING (25/25)
+  - [ ] Materials API tests (35 tests) - ⬜ NOT started <!-- START HERE: see checkpoint v10 -->
+  - [ ] Materials optimization tests (35 tests) - ⬜ NOT started
 - [ ] Multi-domain integration tests (15 tests) - stub exists
 - [ ] Create PHASE_9_COMPLETION.md
 
-**Testing Progress**: 222/365 tests implemented (61%), 222/222 passing (100%)
+**Testing Progress**: 277/365 tests implemented (76%), 277/277 passing (100%)
 **Key Files**: `tests/unit/domains/biology/` ✅ (complete), `tests/unit/domains/neuroscience/` (stubs), `tests/unit/domains/materials/` (stubs), `tests/integration/` (stub)
 
 ---
