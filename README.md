@@ -1,6 +1,6 @@
 # Kosmos AI Scientist
 
-> **Fully autonomous AI scientist powered by Claude for hypothesis generation, experimental design, and iterative scientific discovery**
+> **Fully autonomous AI scientist for hypothesis generation, experimental design, and iterative scientific discovery. Supports Claude, OpenAI, and local models.**
 
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/your-org/kosmos)
 [![Status](https://img.shields.io/badge/status-production%20ready-brightgreen.svg)](https://github.com/your-org/kosmos)
@@ -16,10 +16,45 @@ Kosmos is an open-source implementation of an autonomous AI scientist that can c
 ### Core Capabilities
 - **Autonomous Research Cycle**: Complete end-to-end scientific workflow
 - **Multi-Domain Support**: Biology, physics, chemistry, neuroscience, materials science
-- **Claude-Powered Intelligence**: Uses Claude Sonnet 4.5 for hypothesis generation and analysis
+- **Multi-Provider LLM Support**: Choose between Anthropic, OpenAI, or local models (NEW in v0.2.0)
 - **Beautiful CLI**: Rich terminal interface with 8 commands, interactive mode, and live progress
 - **Agent-Based Architecture**: Modular agents for each research task
 - **Safety-First Design**: Sandboxed execution, validation, reproducibility checks
+
+### Multi-Provider LLM Support (NEW in v0.2.0)
+
+Kosmos now supports multiple LLM providers, giving you flexibility in cost, privacy, and model selection:
+
+| Provider | Type | Example Models | Privacy | Cost |
+|----------|------|----------------|---------|------|
+| **Anthropic** | Cloud | Claude 3.5 Sonnet, Opus, Haiku | Cloud | $$ |
+| **OpenAI** | Cloud | GPT-4 Turbo, GPT-4, GPT-3.5, O1 | Cloud | $$$ |
+| **Ollama** | Local | Llama 3.1, Mistral, Mixtral | **Private** | **Free** |
+| **OpenRouter** | Aggregator | 100+ models | Cloud | Varies |
+| **LM Studio** | Local | Any GGUF model | **Private** | **Free** |
+
+**Switch providers with zero code changes** - just update your `.env` file:
+
+```bash
+# Use OpenAI instead of Anthropic
+LLM_PROVIDER=openai
+OPENAI_API_KEY=sk-...
+OPENAI_MODEL=gpt-4-turbo
+
+# Or run completely local with Ollama (free!)
+LLM_PROVIDER=openai
+OPENAI_BASE_URL=http://localhost:11434/v1
+OPENAI_MODEL=llama3.1:70b
+```
+
+**Benefits:**
+- 💰 **Cost Flexibility**: Mix expensive/cheap models or use free local models
+- 🔒 **Privacy Options**: Run entirely locally for sensitive research
+- 🚀 **Provider Independence**: Switch based on availability, pricing, performance
+- 🔄 **Redundancy**: Mitigate rate limits and service disruptions
+- 🎯 **Access Specialized Models**: Domain-specific or fine-tuned models
+
+**[📖 Provider Setup Guide](docs/providers/README.md)** - Detailed instructions for all supported providers
 
 ### Performance & Scalability (NEW in v1.0)
 - **20-40× Overall Performance**: Combined optimizations for dramatic speedup
