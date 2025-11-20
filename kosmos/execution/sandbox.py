@@ -222,15 +222,30 @@ class DockerSandbox:
         """Run code in Docker container with resource limits and monitoring."""
 
         # Prepare volume mounts
+        # Convert paths for Windows Docker compatibility
+        import platform
+
+        def docker_path(path):
+            """Convert path for Docker volume mounting on Windows."""
+            path_str = str(path)
+            if platform.system() == 'Windows':
+                # Convert Windows paths like C:\path to /c/path for Docker
+                import re
+                path_str = re.sub(r'^([A-Za-z]):', r'/\1', path_str.replace('\\', '/'))
+            return path_str
+
+        code_dir = Path(temp_dir) / "code"
+        output_dir = Path(temp_dir) / "output"
+
         volumes = {
-            f"{temp_dir}/code": {'bind': '/workspace/code', 'mode': 'ro'},
-            f"{temp_dir}/output": {'bind': '/workspace/output', 'mode': 'rw'}
+            docker_path(code_dir): {'bind': '/workspace/code', 'mode': 'ro'},
+            docker_path(output_dir): {'bind': '/workspace/output', 'mode': 'rw'}
         }
 
         # Add data volume if exists
         data_dir = Path(temp_dir) / "data"
         if data_dir.exists():
-            volumes[str(data_dir)] = {'bind': '/workspace/data', 'mode': 'ro'}
+            volumes[docker_path(data_dir)] = {'bind': '/workspace/data', 'mode': 'ro'}
 
         # Prepare environment variables
         env = {
@@ -283,17 +298,26 @@ class DockerSandbox:
             try:
                 exit_status = container.wait(timeout=self.timeout)
                 timeout_occurred = False
+            except docker.errors.APIError as e:
+                # Docker API errors (including timeout)
+                if "timed out" in str(e).lower() or "timeout" in str(e).lower():
+                    logger.warning(f"Container timeout after {self.timeout}s: {e}")
+                    timeout_occurred = True
+
+                    # Try graceful shutdown
+                    try:
+                        container.stop(timeout=5)
+                    except:
+                        container.kill()
+
+                    exit_status = {'StatusCode': -1}
+                else:
+                    logger.error(f"Docker API error: {e}")
+                    raise
             except Exception as e:
-                logger.warning(f"Container timeout after {self.timeout}s: {e}")
-                timeout_occurred = True
-
-                # Try graceful shutdown
-                try:
-                    container.stop(timeout=5)
-                except:
-                    container.kill()
-
-                exit_status = {'StatusCode': -1}
+                # Other unexpected errors
+                logger.error(f"Unexpected error waiting for container: {e}")
+                raise
 
             execution_time = time.time() - start_time
 

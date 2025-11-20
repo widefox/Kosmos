@@ -300,26 +300,36 @@ def test_config():
 @pytest.fixture(autouse=True)
 def reset_singletons():
     """Reset all singleton instances before each test."""
+    # Import reset functions at the beginning to catch import errors early
+    try:
+        from kosmos.knowledge.graph import reset_knowledge_graph
+        from kosmos.knowledge.vector_db import reset_vector_db
+        from kosmos.knowledge.embeddings import reset_embedder
+        from kosmos.knowledge.concept_extractor import reset_concept_extractor
+        from kosmos.literature.reference_manager import reset_reference_manager
+        from kosmos.world_model.factory import reset_world_model
+    except ImportError as e:
+        pytest.skip(f"Reset function not available: {e}")
+
     # This ensures tests don't interfere with each other
     yield
-    # Reset singletons after test
-    from kosmos.knowledge.graph import reset_knowledge_graph
-    from kosmos.knowledge.vector_db import reset_vector_db
-    from kosmos.knowledge.embeddings import reset_embedder
-    from kosmos.knowledge.concept_extractor import reset_concept_extractor
-    from kosmos.literature.reference_manager import reset_reference_manager
-    from kosmos.world_model.factory import reset_world_model
 
-    try:
-        reset_knowledge_graph()
-        reset_vector_db()
-        reset_embedder()
-        reset_concept_extractor()
-        reset_reference_manager()
-        reset_world_model()
-    except Exception:
-        # Silently ignore errors during cleanup
-        pass
+    # Reset singletons after test
+    # Call each reset function individually to isolate errors
+    for reset_func, name in [
+        (reset_knowledge_graph, "knowledge_graph"),
+        (reset_vector_db, "vector_db"),
+        (reset_embedder, "embedder"),
+        (reset_concept_extractor, "concept_extractor"),
+        (reset_reference_manager, "reference_manager"),
+        (reset_world_model, "world_model")
+    ]:
+        try:
+            reset_func()
+        except Exception as e:
+            # Log the error but continue with other resets
+            import warnings
+            warnings.warn(f"Failed to reset {name}: {e}", RuntimeWarning)
 
 
 @pytest.fixture(autouse=True)

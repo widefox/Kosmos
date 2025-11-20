@@ -1289,9 +1289,21 @@ Provide a structured, actionable plan in 2-3 paragraphs.
 
                     try:
                         # Run async evaluation
-                        evaluations = asyncio.run(
-                            self.evaluate_hypotheses_concurrently(hypothesis_batch)
-                        )
+                        try:
+                            # Check if there's already a running event loop
+                            loop = asyncio.get_running_loop()
+                            # If we're already in an async context, await directly
+                            evaluations = asyncio.create_task(
+                                self.evaluate_hypotheses_concurrently(hypothesis_batch)
+                            )
+                            evaluations = asyncio.run_coroutine_threadsafe(
+                                self.evaluate_hypotheses_concurrently(hypothesis_batch), loop
+                            ).result()
+                        except RuntimeError:
+                            # No running loop, use asyncio.run
+                            evaluations = asyncio.run(
+                                self.evaluate_hypotheses_concurrently(hypothesis_batch)
+                            )
 
                         # Process best candidate(s)
                         for eval_result in evaluations:
@@ -1345,9 +1357,18 @@ Provide a structured, actionable plan in 2-3 paragraphs.
 
                     try:
                         # Run async analysis
-                        analyses = asyncio.run(
-                            self.analyze_results_concurrently(result_batch)
-                        )
+                        try:
+                            # Check if there's already a running event loop
+                            loop = asyncio.get_running_loop()
+                            # If we're already in an async context, run in thread
+                            analyses = asyncio.run_coroutine_threadsafe(
+                                self.analyze_results_concurrently(result_batch), loop
+                            ).result()
+                        except RuntimeError:
+                            # No running loop, use asyncio.run
+                            analyses = asyncio.run(
+                                self.analyze_results_concurrently(result_batch)
+                            )
 
                         # Process analyses and update hypotheses
                         for analysis in analyses:
