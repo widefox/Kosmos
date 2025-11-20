@@ -148,7 +148,7 @@ class TestDockerDeployment:
 
         try:
             result = subprocess.run(
-                ["docker-compose", "ps"],
+                ["docker", "compose", "ps"],
                 capture_output=True,
                 text=True,
                 timeout=10

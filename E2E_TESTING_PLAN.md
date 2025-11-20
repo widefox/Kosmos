@@ -16,7 +16,7 @@
 - **Cost:** ~$0.10-0.15
 - **Commit:** 097fa5f
 
-### Full E2E Test Suite Validation
+### Full E2E Test Suite Validation (Run 1)
 - **Status:** ✅ PASSED (8 passed, 1 skipped in 20.83s)
 - **Date:** 2025-11-20
 - **Command:** `pytest tests/e2e/ -v -s --no-cov -m e2e`
@@ -28,10 +28,21 @@
   - `test_api_cost_reduction`: PASSED - Placeholder (assert True)
   - `test_cli_run_and_view_results`: PASSED - Placeholder (assert True)
   - `test_cli_status_monitoring`: PASSED - Placeholder (assert True)
-  - `test_docker_compose_health`: SKIPPED - Docker not available
+  - `test_docker_compose_health`: SKIPPED - Docker not available (legacy command issue)
   - `test_service_health_checks`: PASSED - Placeholder (assert True)
 - **Cost:** ~$0.10-0.15 (biology test re-run)
 - **Key Finding:** Only 1 of 9 tests fully implemented; 7 are placeholders, 1 is skeleton
+
+### Full E2E Test Suite Validation (Run 2 - Docker Fixed)
+- **Status:** ✅ PASSED (9 passed, 0 skipped in 20.73s)
+- **Date:** 2025-11-20
+- **Command:** `pytest tests/e2e/ -v -s --no-cov -m e2e`
+- **Fix Applied:** Updated Docker test to use modern `docker compose` instead of legacy `docker-compose`
+- **Results:**
+  - All 9 tests PASSED
+  - `test_docker_compose_health`: Now PASSED (Docker available, command fixed)
+- **Cost:** ~$0.10-0.15 (biology test re-run)
+- **Key Finding:** Docker is available and functional on this system
 
 ---
 
@@ -119,12 +130,13 @@ pytest tests/e2e/test_full_research_workflow.py::TestBiologyResearchWorkflow::te
 | Test | Status | Cost | Time | Notes |
 |------|--------|------|------|-------|
 | Biology Workflow (Run 1) | ✅ | $0.10-0.15 | 21.95s | First successful E2E |
-| Full Suite Validation | ✅ | $0.10-0.15 | 20.83s | 8 passed, 1 skipped, biology re-run |
+| Full Suite Validation (Run 1) | ✅ | $0.10-0.15 | 20.83s | 8 passed, 1 skipped |
+| Full Suite Validation (Run 2) | ✅ | $0.10-0.15 | 20.73s | 9 passed, Docker fixed |
 | Neuroscience Workflow | 📋 | ~$0.10-0.15 | ~20s | Needs enhancement |
 | Multi-Iteration | 📋 | ~$0.30-0.50 | ~60s | Needs enhancement |
 | CLI Integration | 📋 | ~$0.20-0.30 | ~30s | Needs enhancement |
-| **Total Used** | - | **~$0.22-0.30** | **~43s** | 2 runs completed |
-| **Remaining Budget** | - | **~$19.70-19.78** | - | ~130-160 runs left |
+| **Total Used** | - | **~$0.32-0.45** | **~64s** | 3 runs completed |
+| **Remaining Budget** | - | **~$19.55-19.68** | - | ~130-155 runs left |
 
 ---
 
@@ -143,6 +155,12 @@ pytest tests/e2e/test_full_research_workflow.py::TestBiologyResearchWorkflow::te
 - **Impact:** Graph persistence disabled, but workflow continues
 - **Workaround:** Research director falls back to in-memory storage
 - **Fix Needed:** Update Neo4j credentials in .env or disable graph features
+
+### Issue 4: Docker test using legacy command
+- **Status:** ✅ Fixed
+- **Problem:** Test used `docker-compose` (legacy) instead of `docker compose` (modern)
+- **Solution:** Updated test to use modern Docker Compose plugin syntax
+- **Impact:** Docker test now passes correctly (Docker v29.0.1 + Compose v2.40.3 available)
 
 ---
 
@@ -185,7 +203,7 @@ Visit: https://platform.deepseek.com/usage
 - Performance benchmarks documented (placeholders exist)
 - Cache effectiveness validated (placeholder exists)
 - All 6 research domains tested
-- Docker deployment tested (Docker not available in current environment)
+- Docker deployment tested (Docker available, basic test passing)
 
 ---
 
@@ -242,3 +260,9 @@ Before starting next E2E testing session:
   - Identified implementation gaps: 1 fully implemented, 1 skeleton, 7 placeholders
   - Updated budget tracker with suite validation run (~$0.22-0.30 total spent)
   - Documented which tests need enhancement before meaningful validation
+
+- **2025-11-20 (Docker Fix):** Fixed Docker test and re-validated suite
+  - Updated test to use modern `docker compose` instead of legacy `docker-compose`
+  - Re-ran full suite: 9 passed, 0 skipped (20.73s)
+  - Confirmed Docker v29.0.1 and Docker Compose v2.40.3 available and functional
+  - Updated budget tracker (~$0.32-0.45 total spent)
