@@ -93,17 +93,17 @@ class OpenAIProvider(LLMProvider):
             )
 
         # Extract configuration
-        self.api_key = config.get('api_key') or os.environ.get('OPENAI_API_KEY')
+        self.api_key = config.api_key or os.environ.get('OPENAI_API_KEY')
         if not self.api_key:
             raise ValueError(
                 "OPENAI_API_KEY not provided in config or environment."
             )
 
-        self.model = config.get('model', 'gpt-4-turbo')
-        self.max_tokens = config.get('max_tokens', 4096)
-        self.temperature = config.get('temperature', 0.7)
-        self.base_url = config.get('base_url', None) or os.environ.get('OPENAI_BASE_URL')
-        self.organization = config.get('organization', None) or os.environ.get('OPENAI_ORGANIZATION')
+        self.model = config.model or 'gpt-4-turbo'
+        self.max_tokens = config.max_tokens or 4096
+        self.temperature = config.temperature if config.temperature is not None else 0.7
+        self.base_url = config.base_url or os.environ.get('OPENAI_BASE_URL')
+        self.organization = config.organization or os.environ.get('OPENAI_ORGANIZATION')
 
         # Detect provider type from base_url
         if self.base_url:
