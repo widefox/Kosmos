@@ -314,30 +314,51 @@ def test_config():
 @pytest.fixture(autouse=True)
 def reset_singletons():
     """Reset all singleton instances before each test."""
-    # Import reset functions at the beginning to catch import errors early
+    # This fixture is optional - tests should still run even if reset functions aren't available
+    reset_funcs = []
+
+    # Try to import reset functions, but don't fail if they're not available
     try:
         from kosmos.knowledge.graph import reset_knowledge_graph
+        reset_funcs.append((reset_knowledge_graph, "knowledge_graph"))
+    except ImportError:
+        pass
+
+    try:
         from kosmos.knowledge.vector_db import reset_vector_db
+        reset_funcs.append((reset_vector_db, "vector_db"))
+    except ImportError:
+        pass
+
+    try:
         from kosmos.knowledge.embeddings import reset_embedder
+        reset_funcs.append((reset_embedder, "embedder"))
+    except ImportError:
+        pass
+
+    try:
         from kosmos.knowledge.concept_extractor import reset_concept_extractor
+        reset_funcs.append((reset_concept_extractor, "concept_extractor"))
+    except ImportError:
+        pass
+
+    try:
         from kosmos.literature.reference_manager import reset_reference_manager
+        reset_funcs.append((reset_reference_manager, "reference_manager"))
+    except ImportError:
+        pass
+
+    try:
         from kosmos.world_model.factory import reset_world_model
-    except ImportError as e:
-        pytest.skip(f"Reset function not available: {e}")
+        reset_funcs.append((reset_world_model, "world_model"))
+    except ImportError:
+        pass
 
     # This ensures tests don't interfere with each other
     yield
 
     # Reset singletons after test
-    # Call each reset function individually to isolate errors
-    for reset_func, name in [
-        (reset_knowledge_graph, "knowledge_graph"),
-        (reset_vector_db, "vector_db"),
-        (reset_embedder, "embedder"),
-        (reset_concept_extractor, "concept_extractor"),
-        (reset_reference_manager, "reference_manager"),
-        (reset_world_model, "world_model")
-    ]:
+    for reset_func, name in reset_funcs:
         try:
             reset_func()
         except Exception as e:
@@ -388,6 +409,7 @@ def pytest_collection_modifyitems(config, items):
     skip_neo4j = pytest.mark.skip(reason="Neo4j not available")
     skip_chromadb = pytest.mark.skip(reason="ChromaDB not available")
     skip_claude = pytest.mark.skip(reason="Claude API not configured")
+    skip_execution = pytest.mark.skip(reason="Execution environment not available")
 
     # Check environment
     has_api_keys = os.getenv("ANTHROPIC_API_KEY") and os.getenv("SEMANTIC_SCHOLAR_API_KEY")
@@ -401,3 +423,260 @@ def pytest_collection_modifyitems(config, items):
             item.add_marker(skip_neo4j)
         if "requires_claude" in item.keywords and not has_claude:
             item.add_marker(skip_claude)
+        if "requires_execution_env" in item.keywords:
+            item.add_marker(skip_execution)
+
+
+# ============================================================================
+# Gap Module Fixtures (Compression, Orchestration, Validation, Workflow)
+# ============================================================================
+
+@pytest.fixture
+def mock_context_compressor():
+    """Mock context compressor for testing."""
+    mock = Mock()
+    mock.compress_cycle_results.return_value = Mock(
+        summary="Cycle summary",
+        statistics={'n_tasks': 5},
+        metadata={'cycle': 1}
+    )
+    mock.notebook_compressor = Mock()
+    mock.literature_compressor = Mock()
+    return mock
+
+
+@pytest.fixture
+def mock_artifact_state_manager(temp_dir):
+    """Mock artifact state manager for testing."""
+    from unittest.mock import AsyncMock
+
+    mock = Mock()
+    mock.artifacts_dir = temp_dir / "artifacts"
+    mock.artifacts_dir.mkdir(parents=True, exist_ok=True)
+
+    mock.save_finding_artifact = AsyncMock(return_value=mock.artifacts_dir / "finding.json")
+    mock.save_hypothesis = AsyncMock(return_value="hyp_001")
+    mock.get_finding.return_value = None
+    mock.get_all_cycle_findings.return_value = []
+    mock.get_all_findings.return_value = []
+    mock.get_validated_findings.return_value = []
+    mock.get_cycle_context.return_value = {
+        'cycle': 1,
+        'findings_count': 0,
+        'recent_findings': [],
+        'unsupported_hypotheses': [],
+        'validated_discoveries': [],
+        'statistics': {}
+    }
+    mock.generate_cycle_summary = AsyncMock(return_value="# Summary")
+    mock.get_statistics.return_value = {
+        'total_findings': 0,
+        'validated_findings': 0,
+        'validation_rate': 0
+    }
+    return mock
+
+
+@pytest.fixture
+def mock_skill_loader():
+    """Mock skill loader for testing."""
+    mock = Mock()
+    mock.load_skills_for_task.return_value = "# Skills\n\nAvailable libraries..."
+    mock.get_available_bundles.return_value = ['single_cell_analysis', 'genomics_analysis']
+    mock.get_bundle_skills.return_value = ['scanpy', 'anndata']
+    mock.search_skills.return_value = []
+    mock.get_statistics.return_value = {
+        'total_skills': 100,
+        'predefined_bundles': 8
+    }
+    return mock
+
+
+@pytest.fixture
+def mock_scholar_eval_validator():
+    """Mock ScholarEval validator for testing."""
+    from unittest.mock import AsyncMock
+
+    mock = Mock()
+    mock.evaluate_finding = AsyncMock(return_value=Mock(
+        novelty=0.8,
+        rigor=0.85,
+        clarity=0.75,
+        reproducibility=0.80,
+        impact=0.70,
+        coherence=0.75,
+        limitations=0.65,
+        ethics=0.70,
+        overall_score=0.78,
+        passes_threshold=True,
+        feedback='Good finding',
+        to_dict=lambda: {'overall_score': 0.78, 'passes_threshold': True}
+    ))
+    mock.threshold = 0.75
+    mock.min_rigor_score = 0.70
+    return mock
+
+
+@pytest.fixture
+def mock_plan_creator():
+    """Mock plan creator for testing."""
+    from unittest.mock import AsyncMock
+
+    mock = Mock()
+    mock.create_plan = AsyncMock()
+    mock.revise_plan = AsyncMock()
+    mock._get_exploration_ratio.return_value = 0.7
+    return mock
+
+
+@pytest.fixture
+def mock_plan_reviewer():
+    """Mock plan reviewer for testing."""
+    from unittest.mock import AsyncMock
+
+    mock = Mock()
+    mock.review_plan = AsyncMock(return_value=Mock(
+        approved=True,
+        scores={'specificity': 8.0, 'relevance': 8.0, 'novelty': 7.0,
+                'coverage': 7.5, 'feasibility': 8.0},
+        average_score=7.7,
+        min_score=7.0,
+        feedback='Good plan',
+        required_changes=[],
+        suggestions=[],
+        to_dict=lambda: {'approved': True, 'average_score': 7.7}
+    ))
+    mock.min_average_score = 7.0
+    mock.min_dimension_score = 5.0
+    return mock
+
+
+@pytest.fixture
+def mock_delegation_manager():
+    """Mock delegation manager for testing."""
+    from unittest.mock import AsyncMock
+
+    mock = Mock()
+    mock.execute_plan = AsyncMock(return_value={
+        'completed_tasks': [
+            {'task_id': 1, 'status': 'completed', 'finding': {'summary': 'Test finding'}}
+        ],
+        'failed_tasks': [],
+        'execution_summary': {
+            'total_tasks': 1,
+            'completed_tasks': 1,
+            'failed_tasks': 0,
+            'success_rate': 1.0
+        }
+    })
+    mock.max_parallel_tasks = 3
+    mock.max_retries = 2
+    return mock
+
+
+@pytest.fixture
+def mock_novelty_detector():
+    """Mock novelty detector for testing."""
+    mock = Mock()
+    mock.index_past_tasks.return_value = None
+    mock.check_task_novelty.return_value = {
+        'is_novel': True,
+        'novelty_score': 0.9,
+        'max_similarity': 0.1,
+        'similar_tasks': []
+    }
+    mock.check_plan_novelty.return_value = {
+        'plan_novelty_score': 0.85,
+        'novel_task_count': 8,
+        'redundant_task_count': 2,
+        'task_novelties': []
+    }
+    mock.clear_index.return_value = None
+    mock.get_statistics.return_value = {
+        'total_indexed_tasks': 50,
+        'novelty_threshold': 0.75
+    }
+    return mock
+
+
+@pytest.fixture
+def sample_research_finding():
+    """Sample research finding for testing."""
+    return {
+        'finding_id': 'cycle1_task1',
+        'cycle': 1,
+        'task_id': 1,
+        'summary': 'Found 42 differentially expressed genes with p < 0.001',
+        'statistics': {
+            'p_value': 0.001,
+            'sample_size': 150,
+            'n_genes': 42,
+            'effect_size': 0.85
+        },
+        'methods': 'DESeq2 differential expression analysis',
+        'interpretation': 'Significant gene expression changes in treatment group',
+        'evidence_type': 'data_analysis',
+        'notebook_path': '/path/to/analysis.ipynb'
+    }
+
+
+@pytest.fixture
+def sample_research_hypothesis():
+    """Sample research hypothesis for testing."""
+    return {
+        'hypothesis_id': 'hyp_001',
+        'statement': 'KRAS mutations are associated with poor prognosis in pancreatic cancer',
+        'status': 'unknown',
+        'domain': 'oncology',
+        'confidence': 0.0,
+        'supporting_evidence': [],
+        'refuting_evidence': []
+    }
+
+
+@pytest.fixture
+def sample_research_plan():
+    """Sample research plan for testing."""
+    return {
+        'cycle': 1,
+        'tasks': [
+            {
+                'id': 1,
+                'type': 'data_analysis',
+                'description': 'Analyze gene expression data',
+                'expected_output': 'DEG list',
+                'required_skills': ['deseq2', 'pandas'],
+                'exploration': True,
+                'priority': 1
+            },
+            {
+                'id': 2,
+                'type': 'literature_review',
+                'description': 'Review KRAS mutation papers',
+                'expected_output': 'Literature summary',
+                'required_skills': [],
+                'exploration': False,
+                'priority': 2
+            },
+            {
+                'id': 3,
+                'type': 'data_analysis',
+                'description': 'Validate findings',
+                'expected_output': 'Validation results',
+                'required_skills': ['scipy'],
+                'exploration': False,
+                'priority': 2
+            },
+            {
+                'id': 4,
+                'type': 'data_analysis',
+                'description': 'Additional analysis',
+                'expected_output': 'Results',
+                'required_skills': [],
+                'exploration': True,
+                'priority': 3
+            }
+        ],
+        'rationale': 'Investigate KRAS mutations',
+        'exploration_ratio': 0.5
+    }

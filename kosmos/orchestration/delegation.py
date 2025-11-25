@@ -381,6 +381,8 @@ class DelegationManager:
 
         return {
             'finding_id': f"cycle{cycle}_task{task.get('id', 0)}",
+            'cycle': cycle,
+            'task_id': task.get('id', 0),
             'summary': f"Data analysis completed: {task.get('description', '')[:100]}",
             'statistics': {
                 'p_value': 0.01,
@@ -390,8 +392,7 @@ class DelegationManager:
             'methods': 'Statistical analysis using appropriate tests',
             'interpretation': 'Results support the hypothesis',
             'evidence_type': 'data_analysis',
-            'libraries_used': task.get('required_skills', []),
-            'task_type': 'data_analysis'
+            'metadata': {'libraries_used': task.get('required_skills', [])}
         }
 
     async def _execute_literature_review(
@@ -405,6 +406,8 @@ class DelegationManager:
 
         return {
             'finding_id': f"cycle{cycle}_task{task.get('id', 0)}",
+            'cycle': cycle,
+            'task_id': task.get('id', 0),
             'summary': f"Literature review completed: {task.get('description', '')[:100]}",
             'statistics': {
                 'papers_reviewed': 10,
@@ -412,8 +415,7 @@ class DelegationManager:
             },
             'methods': 'Literature search using academic databases',
             'interpretation': 'Existing literature supports our hypothesis',
-            'evidence_type': 'literature_review',
-            'task_type': 'literature_review'
+            'evidence_type': 'literature_review'
         }
 
     async def _execute_hypothesis_generation(
@@ -427,6 +429,8 @@ class DelegationManager:
 
         return {
             'finding_id': f"cycle{cycle}_task{task.get('id', 0)}",
+            'cycle': cycle,
+            'task_id': task.get('id', 0),
             'summary': f"Generated new hypotheses: {task.get('description', '')[:100]}",
             'statistics': {
                 'hypotheses_generated': 3,
@@ -434,8 +438,7 @@ class DelegationManager:
             },
             'methods': 'Hypothesis generation from current findings',
             'interpretation': 'New testable hypotheses identified',
-            'evidence_type': 'hypothesis_generation',
-            'task_type': 'hypothesis_generation'
+            'evidence_type': 'hypothesis_generation'
         }
 
     async def _execute_generic_task(
@@ -449,12 +452,13 @@ class DelegationManager:
 
         return {
             'finding_id': f"cycle{cycle}_task{task.get('id', 0)}",
+            'cycle': cycle,
+            'task_id': task.get('id', 0),
             'summary': f"Task completed: {task.get('description', '')[:100]}",
             'statistics': {},
             'methods': 'Generic task execution',
             'interpretation': 'Task completed successfully',
-            'evidence_type': 'generic',
-            'task_type': task.get('type', 'unknown')
+            'evidence_type': task.get('type', 'generic')
         }
 
     def get_execution_statistics(self) -> Dict:

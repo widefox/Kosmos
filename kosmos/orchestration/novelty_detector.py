@@ -157,7 +157,7 @@ class NoveltyDetector:
             similarities = self._compute_token_similarities(task_text)
 
         # Find max similarity
-        max_similarity = max(similarities) if similarities else 0.0
+        max_similarity = float(np.max(similarities)) if len(similarities) > 0 else 0.0
         novelty_score = 1.0 - max_similarity
 
         # Determine novelty

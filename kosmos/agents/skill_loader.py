@@ -99,8 +99,8 @@ class SkillLoader:
                        If None, auto-discovers from kosmos-claude-scientific-skills
             auto_discover: Automatically discover all available skills
         """
-        # Find skills directory
-        if skills_dir is None:
+        # Find skills directory (only auto-discover if auto_discover is True)
+        if skills_dir is None and auto_discover:
             skills_dir = self._find_skills_directory()
 
         self.skills_dir = Path(skills_dir) if skills_dir else None

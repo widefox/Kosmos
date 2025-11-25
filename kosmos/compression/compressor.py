@@ -167,8 +167,8 @@ class NotebookCompressor:
 
         # Extract gene/feature counts (common in genomics)
         gene_patterns = [
-            r'(\d+)\s+(?:genes?|features?|DEGs)',
-            r'(?:identified|found)\s+(\d+)\s+(?:genes?|features?)'
+            r'(\d+)\s+(?:\w+\s+)*(?:genes?|features?|DEGs)',  # "42 differentially expressed genes"
+            r'(?:identified|found)\s+(\d+)\s+(?:\w+\s+)*(?:genes?|features?)'  # "found 42 significant genes"
         ]
         gene_counts = []
         for pattern in gene_patterns:
