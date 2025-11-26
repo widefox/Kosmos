@@ -20,6 +20,7 @@ class PaperSource(str, Enum):
     SEMANTIC_SCHOLAR = "semantic_scholar"
     PUBMED = "pubmed"
     UNKNOWN = "unknown"
+    MANUAL = "manual"
 
 
 @dataclass

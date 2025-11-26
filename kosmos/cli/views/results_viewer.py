@@ -196,7 +196,7 @@ class ResultsViewer:
             if isinstance(timestamp, str):
                 try:
                     timestamp = datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
-                except:
+                except (ValueError, TypeError):
                     timestamp = None
 
             table.add_row(

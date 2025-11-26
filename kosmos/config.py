@@ -876,7 +876,7 @@ class KosmosConfig(BaseSettings):
 
         # Check LLM provider configuration
         if self.llm_provider == "anthropic":
-            if not self.claude.api_key:
+            if not self.claude or not self.claude.api_key:
                 missing.append("ANTHROPIC_API_KEY not set (required for anthropic provider)")
         elif self.llm_provider == "openai":
             if self.openai is None:

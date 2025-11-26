@@ -251,7 +251,12 @@ def validate_config():
         ))
 
         # Check database
-        db_exists = Path(config.database.url.replace("sqlite:///", "")).exists()
+        if config.database.url.startswith("sqlite:///"):
+            db_path = config.database.url.replace("sqlite:///", "")
+            db_exists = Path(db_path).exists()
+        else:
+            # For non-SQLite databases, URL presence indicates configuration exists
+            db_exists = bool(config.database.url)
         checks.append((
             "Database",
             config.database.url,

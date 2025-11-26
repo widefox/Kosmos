@@ -477,8 +477,8 @@ class ArtifactStateManager:
                 evidence_id = self.world_model.add_entity(evidence_entity)
 
                 derives_from = Relationship(
-                    from_id=entity_id,
-                    to_id=evidence_id,
+                    source_id=entity_id,
+                    target_id=evidence_id,
                     type="DERIVES_FROM",
                     properties={"evidence_type": finding.evidence_type}
                 )
@@ -487,7 +487,9 @@ class ArtifactStateManager:
             logger.debug(f"Indexed finding {finding.finding_id} to knowledge graph")
 
         except Exception as e:
-            logger.warning(f"Failed to index finding to graph: {e}")
+            logger.warning(f"Failed to index finding to graph: {e}", exc_info=True)
+            if isinstance(e, (KeyboardInterrupt, SystemExit)):
+                raise
 
     async def _index_finding_to_vectors(self, finding: Finding):
         """Index finding to vector store for semantic search."""
