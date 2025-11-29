@@ -6,7 +6,7 @@ and ranks by relevance.
 """
 
 from typing import List, Optional, Dict, Any, Set
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor, as_completed, TimeoutError as FuturesTimeoutError
 from collections import defaultdict
 import logging
 
@@ -154,14 +154,19 @@ class UnifiedLiteratureSearch:
                 for source, client in search_clients.items()
             }
 
-            for future in as_completed(future_to_source):
-                source = future_to_source[future]
-                try:
-                    papers = future.result()
-                    all_papers.extend(papers)
-                    logger.info(f"Retrieved {len(papers)} papers from {source.value}")
-                except Exception as e:
-                    logger.error(f"Error searching {source.value}: {e}")
+            try:
+                for future in as_completed(future_to_source, timeout=60):
+                    source = future_to_source[future]
+                    try:
+                        papers = future.result()
+                        all_papers.extend(papers)
+                        logger.info(f"Retrieved {len(papers)} papers from {source.value}")
+                    except Exception as e:
+                        logger.error(f"Error searching {source.value}: {e}")
+            except FuturesTimeoutError:
+                completed_sources = [s.value for s, c in search_clients.items()
+                                     if any(f.done() for f in future_to_source if future_to_source[f] == s)]
+                logger.warning(f"Literature search timed out after 60s. Completed sources: {completed_sources}")
 
         logger.info(f"Total papers retrieved (before dedup): {len(all_papers)}")
 
@@ -483,7 +488,7 @@ class UnifiedLiteratureSearch:
 
         return [paper for paper, _ in papers_with_scores]
 
-    def _extract_full_text(self, papers: List[PaperMetadata]):
+    def _extract_full_text(self, papers: List[PaperMetadata], pdf_timeout: int = 30):
         """
         Extract full text for papers with PDF URLs.
 
@@ -491,10 +496,15 @@ class UnifiedLiteratureSearch:
 
         Args:
             papers: List of papers to extract text for
+            pdf_timeout: Timeout per paper extraction in seconds (default: 30s)
         """
         for paper in papers:
             if paper.pdf_url and not paper.full_text:
                 try:
-                    self.pdf_extractor.extract_paper_text(paper)
+                    with ThreadPoolExecutor(max_workers=1) as executor:
+                        future = executor.submit(self.pdf_extractor.extract_paper_text, paper)
+                        future.result(timeout=pdf_timeout)
+                except FuturesTimeoutError:
+                    logger.warning(f"PDF extraction timed out after {pdf_timeout}s for {paper.id}")
                 except Exception as e:
                     logger.warning(f"Could not extract PDF for {paper.id}: {e}")

@@ -28,7 +28,7 @@ from kosmos.agents.experiment_designer import ExperimentDesignerAgent
 from kosmos.core.metrics import get_metrics
 
 
-def run_baseline(num_cycles: int = 3):
+def run_baseline(num_cycles: int = 3, use_literature: bool = False):
     """
     Run baseline workflow using individual agents directly.
 
@@ -39,6 +39,7 @@ def run_baseline(num_cycles: int = 3):
 
     Args:
         num_cycles: Number of research cycles to execute
+        use_literature: Whether to enable literature context for hypothesis generation
 
     Returns:
         Report dictionary with all metrics
@@ -55,12 +56,13 @@ def run_baseline(num_cycles: int = 3):
     print("=" * 60)
     print(f"Research question: How does temperature affect enzyme activity?")
     print(f"Cycles: {num_cycles}")
+    print(f"Literature context: {'ENABLED' if use_literature else 'disabled'}")
     print(f"Artifacts: {artifacts_dir}")
     print("=" * 60)
 
     # Initialize agents
-    # Disable literature search to avoid API hangs
-    hypothesis_agent = HypothesisGeneratorAgent(config={"num_hypotheses": 2, "use_literature_context": False})
+    # Literature search now has timeout protection (60s global, 30s per source)
+    hypothesis_agent = HypothesisGeneratorAgent(config={"num_hypotheses": 2, "use_literature_context": use_literature})
     experiment_agent = ExperimentDesignerAgent(config={})
 
     results = {
@@ -219,9 +221,14 @@ def run_baseline(num_cycles: int = 3):
 
 
 if __name__ == "__main__":
-    import sys
+    import argparse
 
-    # Allow command-line override of cycles
-    num_cycles = int(sys.argv[1]) if len(sys.argv) > 1 else 3
+    parser = argparse.ArgumentParser(description="Run Kosmos baseline workflow")
+    parser.add_argument("cycles", type=int, nargs="?", default=3,
+                        help="Number of research cycles to run (default: 3)")
+    parser.add_argument("--with-literature", action="store_true",
+                        help="Enable literature context for hypothesis generation")
 
-    run_baseline(num_cycles=num_cycles)
+    args = parser.parse_args()
+
+    run_baseline(num_cycles=args.cycles, use_literature=args.with_literature)

@@ -8,6 +8,7 @@ from Bio import Entrez, Medline
 from typing import List, Optional
 from datetime import datetime
 import time
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
 
 from kosmos.literature.base_client import (
     BaseLiteratureClient,
@@ -64,12 +65,106 @@ class PubMedClient(BaseLiteratureClient):
             f"rate_limit={self.rate_limit} req/s)"
         )
 
+        # Timeout for Entrez API calls (seconds)
+        self.api_timeout = 30
+
+    def _run_with_timeout(self, func, *args, **kwargs):
+        """
+        Run a function with a timeout using ThreadPoolExecutor.
+
+        Args:
+            func: Function to run
+            *args: Positional arguments
+            **kwargs: Keyword arguments
+
+        Returns:
+            Result of the function or None on timeout
+
+        Raises:
+            FuturesTimeoutError: If the function times out
+        """
+        with ThreadPoolExecutor(max_workers=1) as executor:
+            future = executor.submit(func, *args, **kwargs)
+            return future.result(timeout=self.api_timeout)
+
     def _rate_limit_delay(self):
         """Apply rate limiting delay."""
         elapsed = time.time() - self.last_request_time
         if elapsed < self.min_delay:
             time.sleep(self.min_delay - elapsed)
         self.last_request_time = time.time()
+
+    def _do_esearch(self, search_query: str, max_results: int, sort: str) -> List[str]:
+        """
+        Perform Entrez esearch and return PMIDs.
+
+        Args:
+            search_query: Formatted PubMed query
+            max_results: Maximum results to retrieve
+            sort: Sort order
+
+        Returns:
+            List of PMIDs
+        """
+        handle = Entrez.esearch(
+            db="pubmed",
+            term=search_query,
+            retmax=min(max_results, self.max_results),
+            sort=sort
+        )
+        record = Entrez.read(handle)
+        handle.close()
+        return record.get("IdList", [])
+
+    def _do_efetch(self, pmids: List[str]) -> List[dict]:
+        """
+        Perform Entrez efetch and return Medline records.
+
+        Args:
+            pmids: List of PubMed IDs
+
+        Returns:
+            List of Medline record dictionaries
+        """
+        handle = Entrez.efetch(
+            db="pubmed",
+            id=",".join(pmids),
+            rettype="medline",
+            retmode="text"
+        )
+        records = list(Medline.parse(handle))
+        handle.close()
+        return records
+
+    def _do_elink(self, pmid: str, linkname: str) -> List[str]:
+        """
+        Perform Entrez elink and return linked PMIDs.
+
+        Args:
+            pmid: PubMed ID
+            linkname: Link type (e.g., "pubmed_pubmed_refs")
+
+        Returns:
+            List of linked PMIDs
+        """
+        handle = Entrez.elink(
+            dbfrom="pubmed",
+            db="pubmed",
+            id=pmid,
+            linkname=linkname
+        )
+        record = Entrez.read(handle)
+        handle.close()
+
+        if not record or len(record) == 0 or not record[0].get("LinkSetDb"):
+            return []
+
+        link_set_db = record[0]["LinkSetDb"]
+        if not link_set_db or len(link_set_db) == 0:
+            return []
+
+        links = link_set_db[0].get("Link", [])
+        return [link["Id"] for link in links]
 
     def search(
         self,
@@ -132,23 +227,18 @@ class PubMedClient(BaseLiteratureClient):
             # Build query with date filter
             search_query = self._build_query(query, year_from, year_to)
 
-            # Search for PMIDs
+            # Search for PMIDs with timeout
             self._rate_limit_delay()
-            handle = Entrez.esearch(
-                db="pubmed",
-                term=search_query,
-                retmax=min(max_results, self.max_results),
-                sort=kwargs.get("sort", "relevance")
-            )
-            record = Entrez.read(handle)
-            handle.close()
-
-            # Validate response structure
-            if "IdList" not in record:
-                self.logger.warning(f"Invalid PubMed response structure for query: {query}")
+            try:
+                pmids = self._run_with_timeout(
+                    self._do_esearch,
+                    search_query,
+                    max_results,
+                    kwargs.get("sort", "relevance")
+                )
+            except FuturesTimeoutError:
+                self.logger.warning(f"PubMed esearch timed out after {self.api_timeout}s for query: {query}")
                 return []
-
-            pmids = record["IdList"]
 
             if not pmids:
                 self.logger.info(f"No results found for query: {query}")
@@ -240,31 +330,14 @@ class PubMedClient(BaseLiteratureClient):
                 return cached_result
 
         try:
-            # Use elink to get references
+            # Use elink to get references with timeout
             self._rate_limit_delay()
-            handle = Entrez.elink(
-                dbfrom="pubmed",
-                db="pubmed",
-                id=pmid,
-                linkname="pubmed_pubmed_refs"
-            )
-            record = Entrez.read(handle)
-            handle.close()
-
-            # Check if record is valid and has content
-            if not record or len(record) == 0:
+            try:
+                ref_pmids = self._run_with_timeout(self._do_elink, pmid, "pubmed_pubmed_refs")
+                ref_pmids = ref_pmids[:max_refs]
+            except FuturesTimeoutError:
+                self.logger.warning(f"PubMed elink (refs) timed out after {self.api_timeout}s for PMID {pmid}")
                 return []
-
-            if not record[0].get("LinkSetDb"):
-                return []
-
-            # Extract PMIDs of references safely
-            link_set_db = record[0]["LinkSetDb"]
-            if not link_set_db or len(link_set_db) == 0:
-                return []
-
-            links = link_set_db[0].get("Link", [])
-            ref_pmids = [link["Id"] for link in links][:max_refs]
 
             # Fetch paper details
             papers = self._fetch_paper_details(ref_pmids)
@@ -307,22 +380,14 @@ class PubMedClient(BaseLiteratureClient):
                 return cached_result
 
         try:
-            # Use elink to get citations
+            # Use elink to get citations with timeout
             self._rate_limit_delay()
-            handle = Entrez.elink(
-                dbfrom="pubmed",
-                db="pubmed",
-                id=pmid,
-                linkname="pubmed_pubmed_citedin"
-            )
-            record = Entrez.read(handle)
-            handle.close()
-
-            if not record or not record[0].get("LinkSetDb"):
+            try:
+                cite_pmids = self._run_with_timeout(self._do_elink, pmid, "pubmed_pubmed_citedin")
+                cite_pmids = cite_pmids[:max_cites]
+            except FuturesTimeoutError:
+                self.logger.warning(f"PubMed elink (cites) timed out after {self.api_timeout}s for PMID {pmid}")
                 return []
-
-            # Extract PMIDs of citing papers
-            cite_pmids = [link["Id"] for link in record[0]["LinkSetDb"][0]["Link"]][:max_cites]
 
             # Fetch paper details
             papers = self._fetch_paper_details(cite_pmids)
@@ -380,21 +445,16 @@ class PubMedClient(BaseLiteratureClient):
                 batch_pmids = pmids[i:i + batch_size]
 
                 self._rate_limit_delay()
-                handle = Entrez.efetch(
-                    db="pubmed",
-                    id=",".join(batch_pmids),
-                    rettype="medline",
-                    retmode="text"
-                )
-
-                records = Medline.parse(handle)
+                try:
+                    records = self._run_with_timeout(self._do_efetch, batch_pmids)
+                except FuturesTimeoutError:
+                    self.logger.warning(f"PubMed efetch timed out after {self.api_timeout}s for batch {i//batch_size + 1}")
+                    continue
 
                 for record in records:
                     paper = self._medline_to_metadata(record)
                     if paper:
                         papers.append(paper)
-
-                handle.close()
 
             return papers
 
