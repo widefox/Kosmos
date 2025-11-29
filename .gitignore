@@ -142,10 +142,6 @@ req_to_paper_analysis_*.md
 *.jpg
 *.jpeg
 
-# Testing/debugging prompts
-E2E_RESUME_PROMPT*.md
-*_RESUME_PROMPT*.md
-
 # Literature cache
 .literature_cache/
 .literature_analysis_cache/
