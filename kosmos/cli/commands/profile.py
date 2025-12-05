@@ -1,12 +1,12 @@
 """
 Profile command for performance analysis.
-from kosmos.utils.compat import model_to_dict
 
 Displays profiling results with Rich formatting for easy analysis
 of execution performance, memory usage, and bottlenecks.
 """
 
 import typer
+from kosmos.utils.compat import model_to_dict
 from typing import Optional
 from pathlib import Path
 import json

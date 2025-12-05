@@ -19,9 +19,16 @@ try:
     ASYNC_ANTHROPIC_AVAILABLE = True
 except ImportError:
     ASYNC_ANTHROPIC_AVAILABLE = False
-    APIError = Exception
-    APITimeoutError = Exception
-    RateLimitError = Exception
+    # Create unique placeholder classes so isinstance() checks don't match unrelated exceptions
+    class APIError(Exception):
+        """Placeholder for anthropic.APIError when package not installed."""
+        pass
+    class APITimeoutError(Exception):
+        """Placeholder for anthropic.APITimeoutError when package not installed."""
+        pass
+    class RateLimitError(Exception):
+        """Placeholder for anthropic.RateLimitError when package not installed."""
+        pass
 
 # Import retry decorator
 try:
