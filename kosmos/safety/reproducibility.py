@@ -1,6 +1,5 @@
 """
 Reproducibility management and validation.
-from kosmos.utils.compat import model_to_dict
 
 Implements:
 - Random seed management
@@ -11,6 +10,7 @@ Implements:
 """
 
 import os
+from kosmos.utils.compat import model_to_dict
 import sys
 import random
 import logging

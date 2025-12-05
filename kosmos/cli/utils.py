@@ -198,7 +198,7 @@ def create_metric_text(
 def create_table(
     title: str,
     columns: List[str],
-    rows: List[List[Any]] = None,
+    rows: Optional[List[List[Any]]] = None,
     caption: Optional[str] = None,
     show_header: bool = True,
     show_lines: bool = False,

@@ -1,12 +1,12 @@
 """
 Experiment result data models.
-from kosmos.utils.compat import model_to_dict
 
 Defines Pydantic models for experiment results, extending the database Result model
 with validation and structured data handling.
 """
 
 from pydantic import BaseModel, Field, field_validator
+from kosmos.utils.compat import model_to_dict
 from typing import Dict, List, Optional, Any, Union
 from datetime import datetime
 from enum import Enum

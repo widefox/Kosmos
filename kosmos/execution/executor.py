@@ -1,12 +1,12 @@
 """
 Code execution engine.
-from kosmos.utils.compat import model_to_dict
 
 Executes generated Python code safely with output capture, error handling, and retry logic.
 Supports both direct execution and Docker-based sandboxed execution.
 """
 
 import sys
+from kosmos.utils.compat import model_to_dict
 import io
 import traceback
 from contextlib import redirect_stdout, redirect_stderr
