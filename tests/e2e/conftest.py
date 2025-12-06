@@ -10,6 +10,13 @@ import subprocess
 import pytest
 from typing import Optional
 from datetime import datetime
+from pathlib import Path
+from dotenv import load_dotenv
+
+# Load .env file before checking environment variables
+_env_path = Path(__file__).parent.parent.parent / ".env"
+if _env_path.exists():
+    load_dotenv(_env_path, override=True)
 
 
 # =============================================================================
