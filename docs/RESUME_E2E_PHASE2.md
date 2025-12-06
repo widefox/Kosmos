@@ -4,6 +4,15 @@
 
 Phase 1 E2E test revision is complete. All mock implementations have been replaced with real components. Ready to proceed with Phase 2.
 
+## Goal: Production-Ready E2E Tests
+
+**Critical requirement**: All E2E tests must use real implementations, NOT mocks.
+
+- Do NOT use `Mock()`, `MagicMock()`, `patch()`, or inline mock classes
+- Use real components: `InMemoryWorldModel`, `MetricsCollector`, `ConvergenceDetector`, etc.
+- Use skip decorators (`@requires_neo4j`, `@requires_llm`) when external infrastructure is needed
+- Tests should exercise actual code paths to catch real integration issues
+
 ## Phase 1 Completed ✓
 
 - Created `kosmos/world_model/in_memory.py` - `InMemoryWorldModel` class
@@ -93,8 +102,8 @@ pytest tests/e2e/ -v --tb=short
 pytest tests/e2e/ --collect-only | grep "test session starts" -A 5
 ```
 
-## Reference Documentation
+## Reference Documentation (Archived)
 
-- Phase 1 resume: `docs/RESUME_E2E_PHASE1_REVISION.md`
-- Implementation plan: `docs/E2E_TESTING_IMPLEMENTATION_PLAN.md`
-- Code review: `docs/E2E_TESTING_CODE_REVIEW.md`
+- Phase 1 resume: `docs/archive/RESUME_E2E_PHASE1_REVISION.md`
+- Implementation plan: `docs/archive/E2E_TESTING_IMPLEMENTATION_PLAN.md`
+- Code review: `docs/archive/E2E_TESTING_CODE_REVIEW.md`
