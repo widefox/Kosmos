@@ -501,8 +501,8 @@ class TestCLIWorkflows:
         result = cli_runner.invoke(app, ["doctor"])
         # Doctor command checks system health - may return 0, 1, or 2 depending on status
         assert result.exit_code in [0, 1, 2], f"Doctor command failed unexpectedly: {result.stdout}"
-        # Command should produce output
-        assert len(result.stdout) > 0 or len(result.output) > 0, "Doctor command produced no output"
+        # Command should run without unhandled exceptions
+        assert result.exception is None, f"Doctor command raised exception: {result.exception}"
 
 
 @pytest.mark.e2e
