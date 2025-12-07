@@ -409,11 +409,12 @@ class ClaudeClient:
     def generate_structured(
         self,
         prompt: str,
-        output_schema: Dict[str, Any],
+        output_schema: Optional[Dict[str, Any]] = None,
         system: Optional[str] = None,
         max_tokens: int = 4096,
         temperature: float = 0.3,
         max_retries: int = 2,
+        schema: Optional[Dict[str, Any]] = None,  # Alias for output_schema (provider compatibility)
     ) -> Dict[str, Any]:
         """
         Generate structured output (JSON) from Claude.
@@ -421,6 +422,7 @@ class ClaudeClient:
         Args:
             prompt: The user prompt
             output_schema: JSON schema describing expected output structure
+            schema: Alias for output_schema (for provider interface compatibility)
             system: Optional system prompt
             max_tokens: Maximum tokens for response (default 4096)
             temperature: Sampling temperature (default 0.3 for deterministic output)
@@ -444,8 +446,13 @@ class ClaudeClient:
             )
             ```
         """
+        # Support both 'schema' and 'output_schema' parameter names
+        effective_schema = output_schema or schema
+        if effective_schema is None:
+            raise ValueError("Either 'output_schema' or 'schema' parameter is required")
+
         # Add JSON instruction to system prompt
-        json_system = (system or "") + "\n\nYou must respond with valid JSON matching this schema:\n" + json.dumps(output_schema, indent=2)
+        json_system = (system or "") + "\n\nYou must respond with valid JSON matching this schema:\n" + json.dumps(effective_schema, indent=2)
         json_system += "\n\nIMPORTANT: Return ONLY valid, complete JSON. Ensure all brackets are closed."
 
         last_error = None
@@ -460,7 +467,7 @@ class ClaudeClient:
 
             # Parse JSON with robust fallback strategies
             try:
-                return parse_json_response(response_text, schema=output_schema)
+                return parse_json_response(response_text, schema=effective_schema)
             except JSONParseError as e:
                 last_error = e
                 if attempt < max_retries:
