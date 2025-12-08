@@ -5,7 +5,7 @@ An autonomous AI scientist for scientific discovery, implementing the architectu
 [![Version](https://img.shields.io/badge/version-0.2.0--alpha-blue.svg)](https://github.com/jimmc414/Kosmos)
 [![Status](https://img.shields.io/badge/status-alpha-orange.svg)](https://github.com/jimmc414/Kosmos)
 [![Implementation](https://img.shields.io/badge/core-90%25%20complete-green.svg)](120525_implementation_gaps_v2.md)
-[![Tests](https://img.shields.io/badge/tests-421%20passing-green.svg)](120625_code_review.md)
+[![Tests](https://img.shields.io/badge/tests-438%20passing-green.svg)](120625_code_review.md)
 
 ## What is Kosmos?
 
@@ -150,6 +150,37 @@ NEO4J_PASSWORD=your-password
 REDIS_URL=redis://localhost:6379
 ```
 
+#### Docker Setup for Optional Services
+
+Start Neo4j, Redis, and PostgreSQL with Docker Compose:
+
+```bash
+# Start all optional services (Neo4j, Redis, PostgreSQL)
+docker compose --profile dev up -d
+
+# Or start individual services
+docker compose up -d neo4j
+docker compose up -d redis
+docker compose up -d postgres
+
+# Stop services
+docker compose --profile dev down
+```
+
+Service URLs when running via Docker:
+- Neo4j Browser: http://localhost:7474 (user: neo4j, password: kosmos-password)
+- PostgreSQL: localhost:5432 (user: kosmos, password: kosmos-dev-password)
+- Redis: localhost:6379
+
+#### Semantic Scholar API
+
+Literature search via Semantic Scholar works without authentication. An API key is optional but increases rate limits:
+
+```bash
+# Optional: Get API key from https://www.semanticscholar.org/product/api
+SEMANTIC_SCHOLAR_API_KEY=your-key-here
+```
+
 ### Debug Mode
 
 ```bash
@@ -279,4 +310,4 @@ MIT License
 
 ---
 
-**Version**: 0.2.0-alpha | **Tests**: 421 passing | **Last Updated**: 2025-12-07
+**Version**: 0.2.0-alpha | **Tests**: 438 passing | **Last Updated**: 2025-12-08
