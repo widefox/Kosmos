@@ -4,7 +4,7 @@ An autonomous AI scientist for scientific discovery, implementing the architectu
 
 [![Version](https://img.shields.io/badge/version-0.2.0--alpha-blue.svg)](https://github.com/jimmc414/Kosmos)
 [![Status](https://img.shields.io/badge/status-alpha-orange.svg)](https://github.com/jimmc414/Kosmos)
-[![Implementation](https://img.shields.io/badge/core-90%25%20complete-green.svg)](120525_implementation_gaps_v2.md)
+[![Implementation](https://img.shields.io/badge/paper_gaps-17%2F17%20complete-green.svg)](archive/PAPER_IMPLEMENTATION_GAPS.md)
 [![Tests](https://img.shields.io/badge/tests-3704%20passing-green.svg)](120625_code_review.md)
 
 ## What is Kosmos?
@@ -275,9 +275,9 @@ kosmos/
 
 | Category | Percentage | Description |
 |----------|------------|-------------|
-| Production-ready | 90% | Core research loop, agents, LLM providers, validation |
+| Paper gaps | 100% | All 17 paper implementation gaps complete |
+| Production-ready | 95% | Core research loop, agents, LLM providers, validation |
 | Deferred | 5% | Phase 4 production mode (polyglot persistence) |
-| Known issues | 5% | Some environment-dependent tests skip |
 
 ### Fixed Issues (Recent)
 
@@ -377,14 +377,14 @@ For detailed analysis, see [120525_implementation_gaps_v2.md](120525_implementat
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+See [CONTRIBUTING.md](archive/CONTRIBUTING.md).
 
 Areas where contributions would be useful:
 - Docker sandbox testing and hardening
-- R language support via rpy2
 - Additional scientific domain skills
 - Performance benchmarking with production LLMs
 - Validation studies to measure actual accuracy
+- Multi-tenancy and user isolation
 
 ## License
 
