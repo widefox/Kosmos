@@ -5,7 +5,7 @@ An autonomous AI scientist for scientific discovery, implementing the architectu
 [![Version](https://img.shields.io/badge/version-0.2.0--alpha-blue.svg)](https://github.com/jimmc414/Kosmos)
 [![Status](https://img.shields.io/badge/status-alpha-orange.svg)](https://github.com/jimmc414/Kosmos)
 [![Implementation](https://img.shields.io/badge/paper_gaps-17%2F17%20complete-green.svg)](archive/PAPER_IMPLEMENTATION_GAPS.md)
-[![Tests](https://img.shields.io/badge/tests-3704%20passing-green.svg)](120625_code_review.md)
+[![Tests](https://img.shields.io/badge/tests-3704%20passing-green.svg)](archive/120625_code_review.md)
 
 ## What is Kosmos?
 
@@ -345,9 +345,12 @@ The system is suitable for experimentation and further development. Before produ
 ## Documentation
 
 ### Current Status
-- [120525_implementation_gaps_v2.md](120525_implementation_gaps_v2.md) - Implementation gaps analysis
-- [120625_code_review.md](120625_code_review.md) - Comprehensive code review
+- [archive/PAPER_IMPLEMENTATION_GAPS.md](archive/PAPER_IMPLEMENTATION_GAPS.md) - Paper implementation gaps (17/17 complete)
 - [docs/DEBUG_MODE.md](docs/DEBUG_MODE.md) - Debug mode guide
+
+### Archived Analysis
+- [archive/120525_implementation_gaps_v2.md](archive/120525_implementation_gaps_v2.md) - Original implementation gaps analysis
+- [archive/120625_code_review.md](archive/120625_code_review.md) - Code review (Dec 2025)
 
 ### Operations
 - [GETTING_STARTED.md](GETTING_STARTED.md) - Detailed usage examples
@@ -367,7 +370,7 @@ The original paper omitted implementation details for 6 critical components. Thi
 | 4 | Execution environment not described | Docker-based Jupyter sandbox with pooling |
 | 5 | Discovery validation criteria missing | ScholarEval 8-dimension quality framework |
 
-For detailed analysis, see [120525_implementation_gaps_v2.md](120525_implementation_gaps_v2.md).
+For detailed analysis, see [archive/120525_implementation_gaps_v2.md](archive/120525_implementation_gaps_v2.md).
 
 ## Based On
 
