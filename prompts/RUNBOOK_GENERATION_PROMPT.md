@@ -30,7 +30,7 @@ Kosmos is an autonomous AI scientist that:
 | Gap 1 | State Manager schema undefined | Hybrid architecture: JSON artifacts + Neo4j knowledge graph |
 | Gap 2 | Task generation strategy undefined | Plan Creator + Plan Reviewer + Novelty Detector orchestration |
 | Gap 3 | Agent integration undefined | SkillLoader with 120+ domain-specific scientific skills |
-| Gap 4 | R vs Python ambiguity | Python-only with Docker sandbox |
+| Gap 4 | R vs Python ambiguity | Python + R via RExecutor with Docker sandbox (#69) |
 | Gap 5 | Discovery validation undefined | ScholarEval 8-dimension validation framework |
 
 ### The Codebase Structure

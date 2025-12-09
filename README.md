@@ -276,7 +276,7 @@ kosmos/
 | Category | Percentage | Description |
 |----------|------------|-------------|
 | Paper gaps | 100% | All 17 paper implementation gaps complete |
-| Production-ready | 95% | Core research loop, agents, LLM providers, validation |
+| Ready for user testing | 95% | Core research loop, agents, LLM providers, validation |
 | Deferred | 5% | Phase 4 production mode (polyglot persistence) |
 
 ### Fixed Issues (Recent)
@@ -367,7 +367,7 @@ The original paper omitted implementation details for 6 critical components. Thi
 | 1 | State Manager schema unspecified | 4-layer hybrid architecture (JSON + Neo4j + Vector + Citations) |
 | 2 | Task generation algorithm unstated | Plan Creator + Plan Reviewer pattern |
 | 3 | Agent integration mechanism unclear | Skill loader with 116 domain-specific skills (see [#67](https://github.com/jimmc414/Kosmos/issues/67)) |
-| 4 | Execution environment not described | Docker-based Jupyter sandbox with pooling |
+| 4 | Execution environment not described | Docker sandbox with Python + R support (see [#69](https://github.com/jimmc414/Kosmos/issues/69)) |
 | 5 | Discovery validation criteria missing | ScholarEval 8-dimension quality framework |
 
 For detailed analysis, see [archive/120525_implementation_gaps_v2.md](archive/120525_implementation_gaps_v2.md).
