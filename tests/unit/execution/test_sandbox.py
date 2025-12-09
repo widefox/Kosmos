@@ -85,7 +85,11 @@ class TestSandboxInitialization:
     @patch('kosmos.execution.sandbox.docker')
     def test_sandbox_init_docker_unavailable(self, mock_docker):
         """Test sandbox initialization when Docker unavailable."""
-        mock_docker.from_env.side_effect = Exception("Docker not running")
+        import docker.errors
+
+        # Use DockerException which is what sandbox.py catches
+        mock_docker.errors.DockerException = docker.errors.DockerException
+        mock_docker.from_env.side_effect = docker.errors.DockerException("Docker not running")
 
         with pytest.raises(RuntimeError):
             DockerSandbox()
@@ -197,13 +201,17 @@ class TestResourceLimits:
     @patch('kosmos.execution.sandbox.docker')
     def test_timeout_enforced(self, mock_docker, mock_docker_client, mock_container):
         """Test timeout is enforced."""
+        import docker.errors
+
         mock_docker.from_env.return_value = mock_docker_client
         mock_docker_client.containers.create.return_value = mock_container
 
-        # Simulate timeout
-        import docker.errors
-        mock_container.wait.side_effect = Exception("Timeout")
-        mock_docker.errors = docker.errors
+        # Simulate timeout - must use docker.errors.APIError with "timeout" in message
+        # to trigger timeout detection in sandbox._run_container
+        mock_docker.errors.APIError = docker.errors.APIError
+        mock_container.wait.side_effect = docker.errors.APIError("Request timed out")
+        mock_container.stop = Mock()
+        mock_container.kill = Mock()
 
         sandbox = DockerSandbox(timeout=5)
         result = sandbox.execute("import time; time.sleep(10)")

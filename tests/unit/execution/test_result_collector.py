@@ -17,7 +17,14 @@ from kosmos.models.result import (
     StatisticalTestResult,
     VariableResult
 )
-from kosmos.models.experiment import ExperimentProtocol, ExperimentType
+from kosmos.models.experiment import (
+    ExperimentProtocol,
+    ExperimentType,
+    StatisticalTestSpec,
+    StatisticalTest,
+    ProtocolStep,
+    ResourceRequirements,
+)
 
 
 # Fixtures
@@ -28,12 +35,48 @@ def sample_protocol():
     return ExperimentProtocol(
         id="exp-001",
         hypothesis_id="hyp-001",
+        name="Test Experiment Protocol",
+        domain="biology",
         title="Test Experiment",
-        description="Test description",
+        description="Test description for the sample protocol fixture",
+        objective="Verify result collection functionality",
         experiment_type=ExperimentType.DATA_ANALYSIS,
-        statistical_tests=["t-test"],
+        statistical_tests=[StatisticalTestSpec(
+            test_type=StatisticalTest.T_TEST,
+            description="Compare treatment and control groups using independent samples t-test",
+            null_hypothesis="No difference between treatment and control group means",
+            variables=["treatment", "control"]
+        )],
+        steps=[
+            ProtocolStep(
+                step_number=1,
+                title="Load Data",
+                description="Load treatment and control group data from CSV files",
+                action="pd.read_csv('data.csv')",
+                expected_duration_minutes=2
+            ),
+            ProtocolStep(
+                step_number=2,
+                title="Run Analysis",
+                description="Perform statistical comparison between groups",
+                action="scipy.stats.ttest_ind(treatment, control)",
+                expected_duration_minutes=5
+            ),
+            ProtocolStep(
+                step_number=3,
+                title="Collect Results",
+                description="Extract and format analysis results",
+                action="return results dictionary",
+                expected_duration_minutes=2
+            )
+        ],
         variables={},
         data_requirements={},
+        resource_requirements=ResourceRequirements(
+            cpu_cores=1,
+            memory_gb=1.0,
+            estimated_duration_minutes=10
+        ),
         random_seed=42,
         expected_duration_minutes=10
     )
@@ -389,9 +432,14 @@ class TestResultVersioning:
 class TestDatabaseStorage:
     """Tests for database storage integration."""
 
+    @patch('kosmos.execution.result_collector.get_session')
     @patch('kosmos.execution.result_collector.db_ops')
-    def test_store_result_called(self, mock_db_ops, sample_protocol, successful_execution_output):
+    def test_store_result_called(self, mock_db_ops, mock_get_session, sample_protocol, successful_execution_output):
         """Test result stored in database when enabled."""
+        # Mock the context manager properly
+        mock_session = MagicMock()
+        mock_get_session.return_value.__enter__ = Mock(return_value=mock_session)
+        mock_get_session.return_value.__exit__ = Mock(return_value=False)
         mock_db_ops.create_result.return_value = Mock(id="result-123")
 
         collector = ResultCollector(store_in_db=True)

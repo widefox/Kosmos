@@ -606,12 +606,14 @@ class StatisticalValidator:
         # Normality test (Shapiro-Wilk)
         if len(data) >= 3:
             shapiro_stat, shapiro_p = stats.shapiro(data)
-            normality_met = shapiro_p > 0.05
+            # Convert to Python bool to avoid numpy.bool_ issues with 'is' comparisons
+            normality_met = bool(shapiro_p > 0.05)
         else:
             shapiro_stat, shapiro_p = None, None
             normality_met = None
             warnings_list.append("Sample size too small for normality test")
 
+        # Now safe to use 'is False' since we converted to Python bool
         if normality_met is False:
             warnings_list.append(
                 f"Normality assumption violated (Shapiro-Wilk p={shapiro_p:.4f}). "
