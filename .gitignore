@@ -146,4 +146,9 @@ req_to_paper_analysis_*.md
 .literature_cache/
 .literature_analysis_cache/
 .concept_extraction_cache/
-data/
+
+# Data files (large binary files excluded, benchmarks included)
+data/*.h5ad
+data/*.parquet
+data/*.h5
+!data/benchmarks/

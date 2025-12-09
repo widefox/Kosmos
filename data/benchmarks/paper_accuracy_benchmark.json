@@ -1,0 +1,1485 @@
+{
+  "name": "paper_accuracy_benchmark",
+  "version": "1.0.0",
+  "findings": [
+    {
+      "finding_id": "bench_016",
+      "summary": "Strong positive correlation between X and Y (r=0.65, p<0.01)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "correlation": 0.6480723868467531
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_027",
+      "summary": "ANOVA shows significant group differences (F=4.09, p=0.188)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": false,
+      "domain": "social_science",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "f_stat": 4.090912946085527,
+        "p_value": 0.1883771956227307
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_044",
+      "summary": "Prior studies have shown that gene expression leads to improved outcomes (Smith et al., 2020)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2024"
+        },
+        {
+          "author": "Author1",
+          "year": "2024"
+        },
+        {
+          "author": "Author2",
+          "year": "2018"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_002",
+      "summary": "Treatment group shows significant improvement (p=0.034, d=0.84)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "clinical",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "p_value": 0.03415827488372265,
+        "effect_size": 0.8353077406229072
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_050",
+      "summary": "Meta-analysis of 42 studies confirms positive effects (Jones et al., 2021)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2018"
+        },
+        {
+          "author": "Author1",
+          "year": "2023"
+        },
+        {
+          "author": "Author2",
+          "year": "2020"
+        },
+        {
+          "author": "Author3",
+          "year": "2018"
+        },
+        {
+          "author": "Author4",
+          "year": "2018"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_065",
+      "summary": "The data collectively suggest this relationship warrants further investigation",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": true,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_031",
+      "summary": "Literature review indicates the intervention is effective for the target condition (Brown et al., 2019)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2023"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_048",
+      "summary": "Prior studies have shown that metabolic pathways leads to improved outcomes (Smith et al., 2020)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "physics",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2021"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_041",
+      "summary": "Prior studies have shown that treatment efficacy leads to improved outcomes (Smith et al., 2020)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2023"
+        },
+        {
+          "author": "Author1",
+          "year": "2021"
+        },
+        {
+          "author": "Author2",
+          "year": "2019"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_069",
+      "summary": "These findings suggest that the underlying process may be a key driver of the observed results",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": true,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_063",
+      "summary": "The observed pattern indicates a potential role for this key variable in the biological process",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": true,
+      "domain": "social_science",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_078",
+      "summary": "The observed pattern indicates a potential role for this key variable in the biological process",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": false,
+      "domain": "social_science",
+      "source": "synthetic",
+      "expert_notes": "Over-interpretation",
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_042",
+      "summary": "Meta-analysis of 41 studies confirms positive effects (Jones et al., 2021)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "social_science",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2019"
+        },
+        {
+          "author": "Author1",
+          "year": "2024"
+        },
+        {
+          "author": "Author2",
+          "year": "2021"
+        },
+        {
+          "author": "Author3",
+          "year": "2024"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_032",
+      "summary": "Systematic review supports the primary hypothesis with moderate evidence (Wilson et al., 2020)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2024"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_072",
+      "summary": "The data collectively suggest this relationship warrants further investigation",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": true,
+      "domain": "physics",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_019",
+      "summary": "Strong positive correlation between X and Y (r=0.68, p<0.01)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "clinical",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "correlation": 0.6849040847404463
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_062",
+      "summary": "Our results support the hypothesis that alterations in X contribute to Y",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": true,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_006",
+      "summary": "ANOVA shows significant group differences (F=5.65, p=0.030)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "social_science",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "f_stat": 5.64528746448836,
+        "p_value": 0.02987401850991953
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_083",
+      "summary": "These findings suggest that the underlying process may be a key driver of the observed results",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": false,
+      "domain": "clinical",
+      "source": "synthetic",
+      "expert_notes": "Over-interpretation",
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_055",
+      "summary": "Meta-analysis of 30 studies confirms positive effects (Jones et al., 2021)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": false,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": "Synthetic literature finding",
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2023"
+        },
+        {
+          "author": "Author1",
+          "year": "2023"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_082",
+      "summary": "The observed pattern indicates a potential role for this key variable in the biological process",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": false,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": "Over-interpretation",
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_071",
+      "summary": "The observed pattern indicates a potential role for this key variable in the biological process",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": true,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_018",
+      "summary": "Chi-square test indicates association (chi2=20.87, p=0.027)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "chi2": 20.874457204926507,
+        "p_value": 0.027172853974455694
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_079",
+      "summary": "The observed pattern indicates a potential role for this key variable in the biological process",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": false,
+      "domain": "physics",
+      "source": "synthetic",
+      "expert_notes": "Over-interpretation",
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_056",
+      "summary": "Literature review indicates the intervention is effective for the target condition (Brown et al., 2019)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": false,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": "Synthetic literature finding",
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2021"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_054",
+      "summary": "Systematic review supports the primary hypothesis with moderate evidence (Wilson et al., 2020)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2022"
+        },
+        {
+          "author": "Author1",
+          "year": "2022"
+        },
+        {
+          "author": "Author2",
+          "year": "2020"
+        },
+        {
+          "author": "Author3",
+          "year": "2020"
+        },
+        {
+          "author": "Author4",
+          "year": "2019"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_011",
+      "summary": "Chi-square test indicates association (chi2=8.12, p=0.046)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "physics",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "chi2": 8.120654071330234,
+        "p_value": 0.04619247322937984
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_088",
+      "summary": "These findings suggest that the underlying process may be a key driver of the observed results",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": false,
+      "domain": "physics",
+      "source": "synthetic",
+      "expert_notes": "Over-interpretation",
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_080",
+      "summary": "Our results support the hypothesis that alterations in X contribute to Y",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": false,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": "Over-interpretation",
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_010",
+      "summary": "Chi-square test indicates association (chi2=11.61, p=0.003)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "chi2": 11.613021680550327,
+        "p_value": 0.0031290717032317625
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_070",
+      "summary": "The observed pattern indicates a potential role for this key variable in the biological process",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": true,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_020",
+      "summary": "Chi-square test indicates association (chi2=10.49, p=0.017)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "chi2": 10.490379349256724,
+        "p_value": 0.01688985398635077
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_087",
+      "summary": "The observed pattern indicates a potential role for this key variable in the biological process",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": false,
+      "domain": "clinical",
+      "source": "synthetic",
+      "expert_notes": "Over-interpretation",
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_053",
+      "summary": "Literature review indicates the intervention is effective for the target condition (Brown et al., 2019)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "clinical",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2022"
+        },
+        {
+          "author": "Author1",
+          "year": "2022"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_022",
+      "summary": "ANOVA shows significant group differences (F=6.21, p=0.011)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "f_stat": 6.212890511708433,
+        "p_value": 0.011338159335729996
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_086",
+      "summary": "The observed pattern indicates a potential role for this key variable in the biological process",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": false,
+      "domain": "clinical",
+      "source": "synthetic",
+      "expert_notes": "Over-interpretation",
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_067",
+      "summary": "These findings suggest that the underlying process may be a key driver of the observed results",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": true,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_024",
+      "summary": "Strong positive correlation between X and Y (r=0.61, p<0.01)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "physics",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "correlation": 0.605952066599221
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_046",
+      "summary": "Meta-analysis of 33 studies confirms positive effects (Jones et al., 2021)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "physics",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2018"
+        },
+        {
+          "author": "Author1",
+          "year": "2018"
+        },
+        {
+          "author": "Author2",
+          "year": "2023"
+        },
+        {
+          "author": "Author3",
+          "year": "2022"
+        },
+        {
+          "author": "Author4",
+          "year": "2024"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_090",
+      "summary": "The observed pattern indicates a potential role for this key variable in the biological process",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": false,
+      "domain": "physics",
+      "source": "synthetic",
+      "expert_notes": "Over-interpretation",
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_064",
+      "summary": "The observed pattern indicates a potential role for this key variable in the biological process",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": true,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_001",
+      "summary": "Treatment group shows significant improvement (p=0.037, d=0.45)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "p_value": 0.03733597448823182,
+        "effect_size": 0.4469351122820857
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_068",
+      "summary": "Our results support the hypothesis that alterations in X contribute to Y",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": true,
+      "domain": "physics",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_060",
+      "summary": "Meta-analysis of 12 studies confirms positive effects (Jones et al., 2021)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": false,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": "Synthetic literature finding",
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2023"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_085",
+      "summary": "The data collectively suggest this relationship warrants further investigation",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": false,
+      "domain": "physics",
+      "source": "synthetic",
+      "expert_notes": "Over-interpretation",
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_013",
+      "summary": "Chi-square test indicates association (chi2=9.81, p=0.004)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "chi2": 9.807214756416498,
+        "p_value": 0.004408202292363305
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_037",
+      "summary": "Literature review indicates the intervention is effective for the target condition (Brown et al., 2019)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "social_science",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2023"
+        },
+        {
+          "author": "Author1",
+          "year": "2020"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_076",
+      "summary": "These findings suggest that the underlying process may be a key driver of the observed results",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": true,
+      "domain": "social_science",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_008",
+      "summary": "Regression analysis reveals significant predictor (beta=-0.55, p=0.048)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "beta": -0.5512328003011495,
+        "p_value": 0.04790344053813228
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_033",
+      "summary": "Systematic review supports the primary hypothesis with moderate evidence (Wilson et al., 2020)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2020"
+        },
+        {
+          "author": "Author1",
+          "year": "2024"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_058",
+      "summary": "Meta-analysis of 23 studies confirms positive effects (Jones et al., 2021)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": false,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": "Synthetic literature finding",
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2021"
+        },
+        {
+          "author": "Author1",
+          "year": "2024"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_057",
+      "summary": "Systematic review supports the primary hypothesis with moderate evidence (Wilson et al., 2020)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": false,
+      "domain": "social_science",
+      "source": "synthetic",
+      "expert_notes": "Synthetic literature finding",
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2019"
+        },
+        {
+          "author": "Author1",
+          "year": "2022"
+        },
+        {
+          "author": "Author2",
+          "year": "2020"
+        },
+        {
+          "author": "Author3",
+          "year": "2019"
+        },
+        {
+          "author": "Author4",
+          "year": "2020"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_089",
+      "summary": "Our results support the hypothesis that alterations in X contribute to Y",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": false,
+      "domain": "clinical",
+      "source": "synthetic",
+      "expert_notes": "Over-interpretation",
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_051",
+      "summary": "Literature review indicates the intervention is effective for the target condition (Brown et al., 2019)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "social_science",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2018"
+        },
+        {
+          "author": "Author1",
+          "year": "2022"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_047",
+      "summary": "Prior studies have shown that metabolic pathways leads to improved outcomes (Smith et al., 2020)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2021"
+        },
+        {
+          "author": "Author1",
+          "year": "2021"
+        },
+        {
+          "author": "Author2",
+          "year": "2019"
+        },
+        {
+          "author": "Author3",
+          "year": "2024"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_023",
+      "summary": "Regression analysis reveals significant predictor (beta=-0.46, p=0.025)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "social_science",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "beta": -0.45979752951337505,
+        "p_value": 0.02546233171512159
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_028",
+      "summary": "ANOVA shows significant group differences (F=10.16, p=0.359)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": false,
+      "domain": "clinical",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "f_stat": 10.156908368783686,
+        "p_value": 0.3585609499263948
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_039",
+      "summary": "Prior studies have shown that treatment efficacy leads to improved outcomes (Smith et al., 2020)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2022"
+        },
+        {
+          "author": "Author1",
+          "year": "2019"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_007",
+      "summary": "Strong positive correlation between X and Y (r=0.78, p<0.01)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "correlation": 0.7792557579952908
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_003",
+      "summary": "Chi-square test indicates association (chi2=15.55, p=0.002)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "chi2": 15.548045492131761,
+        "p_value": 0.002460063752465447
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_017",
+      "summary": "Regression analysis reveals significant predictor (beta=0.32, p=0.034)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "clinical",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "beta": 0.32291250153368223,
+        "p_value": 0.034493835611296694
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_038",
+      "summary": "Recent work demonstrates that the proposed mechanism underlies the observed effect (Chen et al., 2022)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "physics",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2018"
+        },
+        {
+          "author": "Author1",
+          "year": "2019"
+        },
+        {
+          "author": "Author2",
+          "year": "2019"
+        },
+        {
+          "author": "Author3",
+          "year": "2018"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_012",
+      "summary": "Chi-square test indicates association (chi2=12.33, p=0.032)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "chi2": 12.329457035177322,
+        "p_value": 0.03180335017522772
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_034",
+      "summary": "Systematic review supports the primary hypothesis with moderate evidence (Wilson et al., 2020)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "clinical",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2020"
+        },
+        {
+          "author": "Author1",
+          "year": "2021"
+        },
+        {
+          "author": "Author2",
+          "year": "2018"
+        },
+        {
+          "author": "Author3",
+          "year": "2018"
+        },
+        {
+          "author": "Author4",
+          "year": "2020"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_015",
+      "summary": "ANOVA shows significant group differences (F=6.34, p=0.032)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "f_stat": 6.335683237321105,
+        "p_value": 0.03214853776895561
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_077",
+      "summary": "The data collectively suggest this relationship warrants further investigation",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": true,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_074",
+      "summary": "These findings suggest that the underlying process may be a key driver of the observed results",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": true,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_075",
+      "summary": "The observed pattern indicates a potential role for this key variable in the biological process",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": true,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_066",
+      "summary": "Our results support the hypothesis that alterations in X contribute to Y",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": true,
+      "domain": "physics",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_081",
+      "summary": "These findings suggest that the underlying process may be a key driver of the observed results",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": false,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": "Over-interpretation",
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_073",
+      "summary": "The data collectively suggest this relationship warrants further investigation",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": true,
+      "domain": "physics",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_009",
+      "summary": "Treatment group shows significant improvement (p=0.006, d=0.36)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "p_value": 0.005544546325627247,
+        "effect_size": 0.3580298261000784
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_036",
+      "summary": "Systematic review supports the primary hypothesis with moderate evidence (Wilson et al., 2020)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2022"
+        },
+        {
+          "author": "Author1",
+          "year": "2019"
+        },
+        {
+          "author": "Author2",
+          "year": "2020"
+        },
+        {
+          "author": "Author3",
+          "year": "2022"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_043",
+      "summary": "Meta-analysis of 11 studies confirms positive effects (Jones et al., 2021)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "physics",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2020"
+        },
+        {
+          "author": "Author1",
+          "year": "2021"
+        },
+        {
+          "author": "Author2",
+          "year": "2021"
+        },
+        {
+          "author": "Author3",
+          "year": "2021"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_052",
+      "summary": "Meta-analysis of 43 studies confirms positive effects (Jones et al., 2021)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2023"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_025",
+      "summary": "Chi-square test indicates association (chi2=18.47, p=0.038)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "clinical",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "chi2": 18.47443224168226,
+        "p_value": 0.03760367677096064
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_004",
+      "summary": "Strong positive correlation between X and Y (r=0.70, p<0.01)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "clinical",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "correlation": 0.702142115241345
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_084",
+      "summary": "The data collectively suggest this relationship warrants further investigation",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": false,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": "Over-interpretation",
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_030",
+      "summary": "Chi-square test indicates association (chi2=23.77, p=0.269)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": false,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "chi2": 23.771944989790242,
+        "p_value": 0.2690614155608658
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_040",
+      "summary": "Prior studies have shown that gene expression leads to improved outcomes (Smith et al., 2020)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2018"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_045",
+      "summary": "Meta-analysis of 39 studies confirms positive effects (Jones et al., 2021)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "clinical",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2019"
+        },
+        {
+          "author": "Author1",
+          "year": "2021"
+        },
+        {
+          "author": "Author2",
+          "year": "2019"
+        },
+        {
+          "author": "Author3",
+          "year": "2020"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_059",
+      "summary": "Recent work demonstrates that the proposed mechanism underlies the observed effect (Chen et al., 2022)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": false,
+      "domain": "social_science",
+      "source": "synthetic",
+      "expert_notes": "Synthetic literature finding",
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2018"
+        },
+        {
+          "author": "Author1",
+          "year": "2023"
+        },
+        {
+          "author": "Author2",
+          "year": "2024"
+        },
+        {
+          "author": "Author3",
+          "year": "2022"
+        },
+        {
+          "author": "Author4",
+          "year": "2020"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_026",
+      "summary": "Chi-square test indicates association (chi2=14.99, p=0.499)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": false,
+      "domain": "physics",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "chi2": 14.985012628509931,
+        "p_value": 0.49913816227328855
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_029",
+      "summary": "Chi-square test indicates association (chi2=11.29, p=0.480)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": false,
+      "domain": "physics",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "chi2": 11.28535299954533,
+        "p_value": 0.47985080148293335
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_061",
+      "summary": "The observed pattern indicates a potential role for this key variable in the biological process",
+      "evidence_type": "interpretation",
+      "ground_truth_accurate": true,
+      "domain": "social_science",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": null
+    },
+    {
+      "finding_id": "bench_005",
+      "summary": "Chi-square test indicates association (chi2=9.97, p=0.033)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "chi2": 9.970941267166213,
+        "p_value": 0.03284433745119664
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_049",
+      "summary": "Literature review indicates the intervention is effective for the target condition (Brown et al., 2019)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2023"
+        },
+        {
+          "author": "Author1",
+          "year": "2023"
+        },
+        {
+          "author": "Author2",
+          "year": "2021"
+        },
+        {
+          "author": "Author3",
+          "year": "2019"
+        },
+        {
+          "author": "Author4",
+          "year": "2019"
+        }
+      ]
+    },
+    {
+      "finding_id": "bench_014",
+      "summary": "Regression analysis reveals significant predictor (beta=0.78, p=0.043)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "clinical",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "beta": 0.7763544330572125,
+        "p_value": 0.0429105683297422
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_021",
+      "summary": "Strong positive correlation between X and Y (r=0.83, p<0.01)",
+      "evidence_type": "data_analysis",
+      "ground_truth_accurate": true,
+      "domain": "biology",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": {
+        "correlation": 0.8287210376027234
+      },
+      "citations": null
+    },
+    {
+      "finding_id": "bench_035",
+      "summary": "Meta-analysis of 20 studies confirms positive effects (Jones et al., 2021)",
+      "evidence_type": "literature",
+      "ground_truth_accurate": true,
+      "domain": "chemistry",
+      "source": "synthetic",
+      "expert_notes": null,
+      "statistics": null,
+      "citations": [
+        {
+          "author": "Author0",
+          "year": "2018"
+        },
+        {
+          "author": "Author1",
+          "year": "2018"
+        },
+        {
+          "author": "Author2",
+          "year": "2023"
+        },
+        {
+          "author": "Author3",
+          "year": "2021"
+        },
+        {
+          "author": "Author4",
+          "year": "2024"
+        }
+      ]
+    }
+  ],
+  "created_at": "2025-12-09T00:04:11.006827",
+  "description": "Synthetic benchmark dataset with 90 findings (30 per type) matching paper accuracy rates",
+  "metadata": {
+    "generator": "BenchmarkGenerator.create_synthetic_benchmark",
+    "n_per_type": 30,
+    "target_accuracy_rates": {
+      "data_analysis": 0.855,
+      "literature": 0.821,
+      "interpretation": 0.579
+    }
+  }
+}
